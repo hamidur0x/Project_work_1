@@ -122,3 +122,7 @@ STATIC_FILES_DIRS = [BASE_DIR / 'static']
 
 IMAGE_URL = '/images/'
 MEDIA_ROOT = BASE_DIR / 'images'
+
+
+TIME_ZONE = "Asia/Dhaka"
+USE_TZ = True

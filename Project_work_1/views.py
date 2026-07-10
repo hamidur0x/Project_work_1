@@ -9,13 +9,14 @@ from django.db.models.functions import TruncDate, TruncMonth
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'report.html', {'products': products})
+    return render(request, 'index.html', {'products': products})
 
 
 def report_view(request):
 
     # All transactions
     sales = Sale.objects.all().order_by('-sold_at')
+
 
     # Daily report
     daily_sales = (
@@ -25,13 +26,14 @@ def report_view(request):
         .annotate(
             total_sales=Sum(
                 ExpressionWrapper(
-                    F("quantity") * F("product__price"),
+                    F("items__quantity") * F("items__product__price"),
                     output_field=DecimalField()
                 )
             )
         )
         .order_by("-date")
     )
+
 
     # Monthly report
     monthly_sales = (
@@ -41,13 +43,14 @@ def report_view(request):
         .annotate(
             total_sales=Sum(
                 ExpressionWrapper(
-                    F("quantity") * F("product__price"),
+                    F("items__quantity") * F("items__product__price"),
                     output_field=DecimalField()
                 )
             )
         )
         .order_by("-month")
     )
+
 
     return render(request, "report.html", {
         "sales": sales,

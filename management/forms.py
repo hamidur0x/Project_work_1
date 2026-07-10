@@ -1,8 +1,12 @@
-# forms.py
 from django import forms
-from .models import Sale
+from .models import SaleItem
 
-class SaleForm(forms.ModelForm):
+
+class SaleItemForm(forms.ModelForm):
+
     class Meta:
-        model = Sale
-        fields = ["product", "quantity"]
+        model = SaleItem
+        fields = [
+            "product",
+            "quantity"
+        ]

@@ -1,0 +1,99 @@
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: left;
+    }
+
+    th {
+        background: #2e7d32;
+        color: #fff;
+    }
+
+    tr:hover {
+        background: #f8fafc;
+    }
+
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+        background: #f5f7fa;
+        font-family: Arial, sans-serif;
+        color: #1f2937;
+    }
+
+    .navbar {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        background: #2e7d32;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .navbar a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .navbar a:hover {
+        text-decoration: underline;
+    }
+
+    form,
+    .sale-card {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    }
+
+    form p,
+    .sale-card p {
+        margin: 0 0 1rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font: inherit;
+    }
+
+    button {
+        width: 100%;
+        padding: 0.85rem;
+        border: 0;
+        border-radius: 6px;
+        background: #2563eb;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #1d4ed8;
+    }
