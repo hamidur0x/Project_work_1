@@ -7,43 +7,56 @@ from django.db.models import Sum, F, DecimalField, ExpressionWrapper
 from django.db.models.functions import TruncDate, TruncMonth
 
 
+
 def home(request):
+
     products = Product.objects.all()
-    return render(request, 'index.html', {'products': products})
+
+    return render(
+        request,
+        "index.html",
+        {
+            "products": products
+        }
+    )
+
 
 
 def report_view(request):
 
-    # All transactions
-    sales = Sale.objects.all().order_by('-sold_at')
+    sales = Sale.objects.all().order_by("-date")
 
 
     # Daily report
     daily_sales = (
         Sale.objects
-        .annotate(date=TruncDate("sold_at"))
-        .values("date")
+        .annotate(
+            day=TruncDate("date")
+        )
+        .values("day")
         .annotate(
             total_sales=Sum(
                 ExpressionWrapper(
-                    F("items__quantity") * F("items__product__price"),
+                    F("quantity") * F("product__price"),
                     output_field=DecimalField()
                 )
             )
         )
-        .order_by("-date")
+        .order_by("-day")
     )
 
 
     # Monthly report
     monthly_sales = (
         Sale.objects
-        .annotate(month=TruncMonth("sold_at"))
+        .annotate(
+            month=TruncMonth("date")
+        )
         .values("month")
         .annotate(
             total_sales=Sum(
                 ExpressionWrapper(
-                    F("items__quantity") * F("items__product__price"),
+                    F("quantity") * F("product__price"),
                     output_field=DecimalField()
                 )
             )
@@ -52,8 +65,12 @@ def report_view(request):
     )
 
 
-    return render(request, "report.html", {
-        "sales": sales,
-        "daily_sales": daily_sales,
-        "monthly_sales": monthly_sales,
-    })
+    return render(
+        request,
+        "report.html",
+        {
+            "sales": sales,
+            "daily_sales": daily_sales,
+            "monthly_sales": monthly_sales,
+        }
+    )

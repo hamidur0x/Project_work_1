@@ -1,8 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+
+<body>
+
 {% include 'nav.html' %}
+
 
 <h1>Transaction Report</h1>
 
+
 <table border="1">
+
 <tr>
     <th>Product</th>
     <th>Quantity</th>
@@ -11,64 +31,147 @@
     <th>Date</th>
 </tr>
 
+
+
 {% for sale in sales %}
-    {% for item in sale.items.all %}
-    <tr>
-        <td>{{ item.product.name }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.product.price }}</td>
-        <td>{{ item.subtotal }}</td>
-        <td>{{ sale.sold_at }}</td>
-    </tr>
-    {% endfor %}
-{% empty %}
+
 <tr>
-    <td colspan="5">No sales found</td>
+
+<td>
+    {{ sale.product.name }}
+</td>
+
+
+<td>
+    {{ sale.quantity }}
+</td>
+
+
+<td>
+    {{ sale.product.price }}
+</td>
+
+
+<td>
+    {{ sale.quantity|floatformat:2|add:"0" }}
+</td>
+
+
+<td>
+    {{ sale.date }}
+</td>
+
+
 </tr>
+
+
+{% empty %}
+
+<tr>
+    <td colspan="5">
+        No sales found
+    </td>
+</tr>
+
+
 {% endfor %}
+
 
 </table>
 
 
+
 <h2>Daily Report</h2>
 
+
 <table border="1">
+
 <tr>
     <th>Date</th>
     <th>Total Sales</th>
 </tr>
 
+
+
 {% for day in daily_sales %}
+
 <tr>
-    <td>{{ day.date }}</td>
-    <td>{{ day.total_sales }}</td>
+
+<td>
+    {{ day.day }}
+</td>
+
+
+<td>
+    {{ day.total_sales }}
+</td>
+
+
 </tr>
+
+
 {% empty %}
+
 <tr>
-    <td colspan="2">No data</td>
+    <td colspan="2">
+        No data
+    </td>
 </tr>
+
+
 {% endfor %}
+
 
 </table>
 
 
+
+
 <h2>Monthly Report</h2>
 
+
 <table border="1">
+
 <tr>
     <th>Month</th>
     <th>Total Sales</th>
 </tr>
 
+
+
 {% for month in monthly_sales %}
+
 <tr>
-    <td>{{ month.month }}</td>
-    <td>{{ month.total_sales }}</td>
+
+<td>
+    {{ month.month }}
+</td>
+
+
+<td>
+    {{ month.total_sales }}
+</td>
+
+
 </tr>
+
+
 {% empty %}
+
 <tr>
-    <td colspan="2">No data</td>
+    <td colspan="2">
+        No data
+    </td>
 </tr>
+
+
 {% endfor %}
 
+
 </table>
+
+
+
+</body>
+
+</html>

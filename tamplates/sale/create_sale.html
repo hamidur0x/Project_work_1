@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Page</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+    {% include 'nav.html' %}
+    <h2>Create Sale</h2>
+
+
+    {% if error %}
+    <p style="color:red;font-weight:bold;">
+        {{ error }}
+    </p>
+    {% endif %}
+
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        {{ form.product.label }}
+        {{ form.product }}
+
+        <br><br>
+
+
+        {{ form.quantity.label }}
+        {{ form.quantity }}
+
+
+        <br><br>
+
+
+        <button name="action" value="add">
+            Add Item
+        </button>
+
+
+    </form>
+
+
+
+    <hr>
+
+
+    <h3>Cart</h3>
+
+
+    <table border="1">
+
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+
+
+
+        {% for item in cart %}
+
+        <tr>
+
+            <td>
+                {{ item.name }}
+            </td>
+
+
+            <td>
+                {{ item.quantity }}
+            </td>
+
+
+            <td>
+                {{ item.price }}
+            </td>
+
+
+            <td>
+                {{ item.subtotal }}
+            </td>
+
+
+            <td>
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="remove_id" value="{{ forloop.counter0 }}">
+
+
+                    <button name="action" value="remove">
+                        Remove
+                    </button>
+
+
+                </form>
+
+            </td>
+
+
+        </tr>
+
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="5">
+                No items added
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+
+
+    </table>
+
+
+
+    <h3>
+        Grand Total: {{ total }}
+    </h3>
+
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button name="action" value="complete">
+
+            Complete Sale
+
+        </button>
+
+
+    </form>
+
+
+
+    <script>
+
+        const productSelect = document.getElementById("id_product");
+        const quantityInput = document.getElementById("id_quantity");
+
+        const priceBox = document.getElementById("price");
+        const totalBox = document.getElementById("item-total");
+
+
+        // Product price data from Django
+        const prices = {
+        {% for product in products %}
+        "{{ product.id }}": { { product.price } },
+        {% endfor %}
+        };
+
+
+        function updatePrice() {
+
+            let productId = productSelect.value;
+            let quantity = quantityInput.value;
+
+            let price = prices[productId] || 0;
+
+            priceBox.innerHTML = price;
+
+            totalBox.innerHTML = price * quantity;
+
+        }
+
+
+        productSelect.addEventListener(
+            "change",
+            updatePrice
+        );
+
+
+        quantityInput.addEventListener(
+            "input",
+            updatePrice
+        );
+
+
+    </script>
+</body>
+
+</html>
