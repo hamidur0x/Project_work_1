@@ -128,3 +128,5 @@ MEDIA_ROOT = BASE_DIR / 'images'
 
 TIME_ZONE = "Asia/Dhaka"
 USE_TZ = True
+
+DEBUG = False

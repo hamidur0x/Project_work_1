@@ -164,9 +164,9 @@
 
         // Product price data from Django
         const prices = {
-        {% for product in products %}
-        "{{ product.id }}": { { product.price } },
-        {% endfor %}
+    {% for product in products %}
+        "{{ product.id }}": {{ product.price }},
+    {% endfor %}
         };
 
 
