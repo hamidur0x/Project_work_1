@@ -135,3 +135,12 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
 ]
+import os
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    "library_management_system.settings",
+)
