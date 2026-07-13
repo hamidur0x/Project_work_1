@@ -130,3 +130,8 @@ TIME_ZONE = "Asia/Dhaka"
 USE_TZ = True
 
 DEBUG = False
+ALLOWED_HOSTS = [
+    "groceryshop-management-system.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
